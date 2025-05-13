@@ -1,0 +1,46 @@
+@model lonnieDb.Models.Event
+
+@{
+    ViewData["Title"] = "Delete Event";
+}
+
+<h1>Delete Event</h1>
+
+<div class="alert alert-danger" role="alert">
+    Are you sure you want to delete this event?
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="card-title">@Model.EventName</h4>
+
+        <dl class="row">
+            <dt class="col-sm-3">Event Date</dt>
+            <dd class="col-sm-9">@Model.EventDate.ToShortDateString()</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Venue</dt>
+            <dd class="col-sm-9">@Model.Venue?.VenueName</dd>
+
+            <dt class="col-sm-3">Image</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Event Image" class="img-thumbnail" style="max-height: 200px;" />
+                }
+                else
+                {
+                    <em>No image available</em>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="DeleteConfirmed">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

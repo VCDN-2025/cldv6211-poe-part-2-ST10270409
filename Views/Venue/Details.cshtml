@@ -1,0 +1,61 @@
+@model lonnieDb.Models.Venue
+
+@{
+    ViewData["Title"] = "Venue Details";
+}
+
+<h1>@Model.VenueName</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8">@Model.VenueName</dd>
+
+            <dt class="col-sm-4">Location</dt>
+            <dd class="col-sm-8">@Model.Location</dd>
+
+            <dt class="col-sm-4">Capacity</dt>
+            <dd class="col-sm-8">@Model.Capacity</dd>  <!-- Add capacity if available -->
+
+            <dt class="col-sm-4">Description</dt>
+            <dd class="col-sm-8">@Model.Description</dd>  <!-- Add description if available -->
+
+            <dt class="col-sm-4">Image</dt>
+            <dd class="col-sm-8">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Venue Image" width="300" class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal" />
+                }
+                else
+                {
+                    <span>No image available</span>
+                }
+            </dd>
+        </dl>
+
+        <div class="mt-3">
+            <a asp-action="Edit" asp-route-id="@Model.VenueId" class="btn btn-primary">Edit</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for image preview -->
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Venue Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="@Model.ImageUrl" alt="Venue Image" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

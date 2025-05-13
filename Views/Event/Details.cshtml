@@ -1,0 +1,63 @@
+@model lonnieDb.Models.Event
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<h1>@Model.EventName</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.EventName</h4>
+
+        <dl class="row">
+            <dt class="col-sm-3">Event Date</dt>
+            <dd class="col-sm-9">@Model.EventDate.ToString("MMMM dd, yyyy")</dd> <!-- More user-friendly date format -->
+
+            @if (Model.EventEndDate != null)
+            {
+                <dt class="col-sm-3">End Date</dt>
+                <dd class="col-sm-9">@Model.EventEndDate?.ToString("MMMM dd, yyyy")</dd> <!-- Display end date if available -->
+            }
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Venue</dt>
+            <dd class="col-sm-9">@Model.Venue?.VenueName</dd>
+
+            <dt class="col-sm-3">Event Image</dt>
+            <dd class="col-sm-9">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Event Image" class="img-fluid rounded" style="max-height: 300px;" data-bs-toggle="modal" data-bs-target="#imageModal" />
+                }
+                else
+                {
+                    <p><em>No image uploaded</em></p>
+                }
+            </dd>
+        </dl>
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit Event</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<!-- Modal for Image Preview -->
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Event Image</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="@Model.ImageUrl" alt="Event Image" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

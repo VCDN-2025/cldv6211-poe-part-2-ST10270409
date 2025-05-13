@@ -1,0 +1,45 @@
+@model lonnieDb.Models.Venue
+
+@{
+    ViewData["Title"] = "Delete Venue";
+}
+
+<h1>Delete Venue</h1>
+
+<hr />
+<div class="alert alert-danger">
+    <strong>Warning:</strong> This action cannot be undone.
+</div>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-warning">
+        @Html.ValidationSummary()
+    </div>
+}
+
+<div>
+    <h4>Are you sure you want to delete this venue?</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Name</dt>
+        <dd class="col-sm-10">@Model.VenueName</dd>
+
+        <dt class="col-sm-2">Location</dt>
+        <dd class="col-sm-10">@Model.Location</dd>
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <dt class="col-sm-2">Image</dt>
+            <dd class="col-sm-10">
+                <img src="@Model.ImageUrl" alt="Venue Image" width="200" />
+            </dd>
+        }
+    </dl>
+
+    <form asp-action="DeleteConfirmed">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

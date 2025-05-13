@@ -1,0 +1,31 @@
+@model lonnieDb.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<h1>Booking Details</h1>
+
+<div>
+    <h3>@Model.UserName's Booking</h3>
+    <dl class="row">
+        <dt class="col-sm-2">Booking Date</dt>
+        <dd class="col-sm-10">@Model.BookingDate.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Event Name</dt>
+        <dd class="col-sm-10">@Model.Event?.EventName</dd>
+
+        <dt class="col-sm-2">Venue Name</dt>
+        <dd class="col-sm-10">@Model.Event?.Venue?.VenueName</dd>
+
+        <dt class="col-sm-2">Venue Location</dt>
+        <dd class="col-sm-10">@Model.Event?.Venue?.VenueLocation</dd>
+
+        <dt class="col-sm-2">Booking Status</dt>
+        <dd class="col-sm-10">@Model.Status</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Delete</a>
+    <a asp-action="Index" class="btn btn-sm btn-secondary">Back to List</a>
+</div>
